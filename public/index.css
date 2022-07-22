@@ -1,0 +1,106 @@
+.relative {
+  position: relative;
+}
+.keyboard {
+  background-color: #ccc;
+  padding: 5px;
+  border-radius: 4px;
+}
+.row {
+  display: flex;
+  margin-bottom: 5px;
+}
+.row:last-child {
+  margin-bottom: 0;
+}
+.key {
+  margin-right: 5px;
+  height: 100%;
+}
+.key:last-child {
+  margin-right: 0;
+}
+.keyLayout {
+  height: 100%;
+  padding: 2px;
+  border-radius: 4px;
+  background-color: white;
+  border: 1px solid black;
+  box-sizing: border-box;
+  display: grid;
+}
+
+.keyLabel {
+  min-height: 1em;
+  display: flex;
+  text-align: center;
+}
+.keyLabel.c {
+  align-items: center;
+  justify-self: center;
+}
+.keyLabel.s {
+  align-items: end;
+  justify-content: center;
+}
+.keyLabel.n {
+  align-items: start;
+  justify-content: center;
+}
+.keyLabel.se {
+  align-items: end;
+  justify-content: end;
+}
+.keyLabel.sw {
+  align-items: end;
+  justify-content: start;
+}
+.rb {
+  right: 0;
+  bottom: 0;
+}
+.row {
+}
+
+@font-face {
+  font-family: "NotoSansRunic";
+  src: url("./font/NotoSansRunic-Regular.ttf");
+}
+.runic-alphabet {
+  margin-bottom: 15px;
+}
+.runic-alphabet-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+.runic-alphabet-ages {
+}
+.runic-table {
+  /* display: grid;
+  grid-template-columns: repeat(10,50px); */
+  display: flex;
+  column-gap: 5px;
+}
+.runic-cell {
+  display: grid;
+  border: 1px solid;
+  min-width: 50px;
+}
+.runic-cell > div {
+  text-align: center;
+}
+.runic-cell-rune {
+  font-size: 28px;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  display: flex;
+  justify-content: space-evenly;
+}
+.runic-cell-trans {
+  background-color: #efefef;
+  height: 24px;
+}
+.runic-cell-ipa {
+  background-color: #efefef;
+  height: 24px;
+}

@@ -1,0 +1,76 @@
+Code Point	Rune	Transliteration	IPA	Name	Elder Futhark	Anglo-Saxon	Younger Futhark (long-branch)	Younger Futhark (short-twig)	Medieval
+0x16A0	ᚠ	f	/f/	FEHU FEOH FE F	x	x	x	x	x
+0x16A2	ᚢ	u	/u(ː)/ 	URUZ UR U	x	x	x	x	x
+0x16A6	ᚦ	þ	/θ/	THURISAZ THURS THORN	x	x	x	x	x
+0x16B1	ᚱ	r	/r/	RAIDO RAD REID R	x	x	x	x	x
+0x16C1	ᛁ	i	/i(ː)/	ISAZ IS ISS I	x	x	x	x	x
+0x16DA	ᛚ	l	/l/	LAUKAZ LAGU LOGR L	x	x	x	x	x
+0x16B4	ᚴ	k	/k/	KAUN K			x	x	x
+0x16CB	ᛋ	s	/s/	SIGEL LONG-BRANCH-SOL S		x	x		x
+0x16C5	ᛅ	æ	/æː/	LONG-BRANCH-AR AE			x		x
+0x16D8	ᛘ	m	/m/	LONG-BRANCH-MADR M			x		x
+0x16E6	ᛦ	y	/y(ː)/	LONG-BRANCH-YR			x		x
+0x16BE	ᚾ	n	/n/	NAUDIZ NYD NAUD N	x	x	x		
+0x16CF	ᛏ	t	/t/	TIWAZ TIR TYR T	x	x	x		
+0x16D2	ᛒ	b	/b/	BERKANAN BEORC BJARKAN B	x	x	x		
+0x16AC	ᚬ	o	/o(ː)/	LONG-BRANCH-OSS O			x		
+0x16BC	ᚼ	h	/h/	LONG-BRANCH-HAGALL H			x		
+0x16BF	ᚿ	n	/n/	SHORT-TWIG-NAUD N				x	x
+0x16C6	ᛆ	a	/a(ː)/	SHORT-TWIG-AR A				x	x
+0x16CC	ᛌ	s	/s/	SHORT-TWIG-SOL S				x	x
+0x16D0	ᛐ	t	/t/	SHORT-TWIG-TYR T				x	x
+0x16D9	ᛙ	m	/m/	SHORT-TWIG-MADR M				x	x
+0x16A1	ᚡ	v	/v/	V					x
+0x16A4	ᚤ	y	/y/	Y					x
+0x16A5	ᚥ	w	/w/	W					x
+0x16A7	ᚧ	ð	/ɛð/	ETH					x
+0x16AE	ᚮ	o	/o(ː)/	O					x
+0x16AF	ᚯ	æ	/æ/	OE					x
+0x16B0	ᚰ	ø	/œ/	ON					x
+0x16B5	ᚵ	g	/g/	G					x
+0x16B6	ᚶ	ŋ	/ŋ/	ENG					x
+0x16C0	ᛀ	n	/n/	DOTTED-N					x
+0x16C2	ᛂ	e	/e(ː)/	E					x
+0x16CD	ᛍ	c	/k/	C					x
+0x16CE	ᛎ	z	/z/	Z					x
+0x16D1	ᛑ	d	/d/	D					x
+0x16D4	ᛔ	p	/p/	DOTTED-P					x
+0x16D5	ᛕ	p	/p/	OPEN-P					x
+0x16DB	ᛛ	l	/l/	DOTTED-L					x
+0x16E8	ᛨ	y	/y(ː)/	ICELANDIC-YR					x
+0x16E9	ᛩ	q	/q/	Q					x
+0x16EA	ᛪ	x	/ks/	X					x
+0x16AD	ᚭ	o	/o(ː)/	SHORT-TWIG-OSS O				x	
+0x16BD	ᚽ	h	/h/	SHORT-TWIG-HAGALL H				x	
+0x16D3	ᛓ	b	/b/	SHORT-TWIG-BJARKAN B				x	
+0x16E7	ᛧ	y	/y(ː)/	SHORT-TWIG-YR				x	
+0x16A3	ᚣ	y	/y(ː)/	YR		x			
+0x16A8	ᚨ	a	/a(ː)/	ANSUZ A	x	x			
+0x16A9	ᚩ	o	/o(ː)/	OS O		x			
+0x16AA	ᚪ	a	/a(ː)/	AC A		x			
+0x16AB	ᚫ	æ	/æː/	AESC		x			
+0x16B3	ᚳ	c	/k/	CEN		x			
+0x16B7	ᚷ	g	/ɡ/	GEBO GYFU G	x	x			
+0x16B8	ᚸ			GAR		x			
+0x16B9	ᚹ	w	/w/	WUNJO WYNN W	x	x			
+0x16BB	ᚻ	h	/h/	HAEGL H		x			
+0x16C4	ᛄ	j	/j/	GER		x			
+0x16C7	ᛇ	ï	/æː/	IWAZ EOH	x	x			
+0x16C8	ᛈ	p	/p/	PERTHO PEORTH P	x	x			
+0x16C9	ᛉ	z	/z/	ALGIZ EOLHX	x	x			
+0x16D6	ᛖ	e	/e(ː)/	EHWAZ EH E	x	x			
+0x16D7	ᛗ	m	/m/	MANNAZ MAN M	x	x			
+0x16DD	ᛝ	ŋ	/ŋ/	ING		x			
+0x16DE	ᛞ	d	/d/	DAGAZ DAEG D	x	x			
+0x16DF	ᛟ	o	/o(ː)/	OTHALAN ETHEL O	x	x			
+0x16E0	ᛠ	ea	/æ(ː)ɑ/	EAR		x			
+0x16E1	ᛡ			IOR		x			
+0x16E2	ᛢ			CWEORTH		x			
+0x16E3	ᛣ			CALC		x			
+0x16E4	ᛤ			CEALC		x			
+0x16E5	ᛥ			STAN		x			
+0x16B2	ᚲ	k	/k/	KAUNA	x				
+0x16BA	ᚺ	h	/h/	HAGLAZ H	x				
+0x16C3	ᛃ	j	/j/	JERAN J	x				
+0x16CA	ᛊ	s	/s/	SOWILO S	x				
+0x16DC	ᛜ	ŋ	/ŋ/	INGWAZ	x				

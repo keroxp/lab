@@ -1,0 +1,24 @@
+{
+  "name": "vkey",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "w": "esbuild --bundle src/index.ts --sourcemap --outdir=build --watch",
+    "r": "serve . -p 3030"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^18.0.5",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "esbuild": "^0.14.49",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.3.0",
+    "serve": "^14.0.1",
+    "typescript": "^4.7.4"
+  }
+}
