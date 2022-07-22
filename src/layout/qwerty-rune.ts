@@ -1,10 +1,11 @@
-import { KeyboardDef } from "../key";
+import { KeyboardDef, KeyLayout } from "../key";
 import {
   usCapsKey,
   usDelKey,
   usReturnKey,
+  usRow5,
   usShiftKey,
-  usTabKey
+  usTabKey,
 } from "../key-util";
 
 const Row1 = [
@@ -23,54 +24,63 @@ const Row1 = [
   ["+", "="],
   usDelKey(),
 ];
+function key(l: string, r: string) {
+  return new KeyLayout({
+    labels: [
+      { text: l, dir: "nw" },
+      { text: r, dir: "se" },
+    ],
+  });
+}
+
 const Row2 = [
   usTabKey(),
   ["Q"],
-  ["W"],
-  ["E"],
-  ["R"],
-  ["T"],
+  key("W","ᚹ"),
+  key("E","ᛖ"),
+  key("R", "ᚱ"),
+  key("T", "ᛏ"),
   ["Y"],
-  ["U"],
-  ["I"],
-  ["O"],
-  ["P"],
+  key("U", "ᚢ"),
+  key("I", "ᛁ"),
+  key("O","ᛟ"),
+  key("P", "ᛈ"),
   ["[", "{"],
   ["]", "}"],
   ["|", "\\"],
 ];
 const Row3 = [
   usCapsKey(),
-  ["A"],
-  ["S"],
-  ["D"],
-  ["F"],
-  ["G"],
-  ["H"],
-  ["J"],
-  ["K"],
-  ["L"],
+  key("A","ᚨ"),
+  key("S","ᛊ"),
+  key("D","ᛞ"),
+  key("F", "ᚠ"),
+  key("G","ᚷ"),
+  key("H","ᚺ"),
+  key("J","ᛃ"),
+  key("K","ᚲ"),
+  key("L", "ᛚ"),
   [":", ";"],
   ['"', "'"],
   usReturnKey(),
 ];
 const Row4 = [
   usShiftKey("L"),
-  ["Z"],
-  ["X"],
-  ["C"],
-  ["V"],
-  ["B"],
-  ["N"],
-  ["M"],
+  key("Z", "ᛉ"),
+  key("X", "ᚦ"),
+  key("C","ᛜ" ),
+  key("V","ᛇ"),
+  key("B","ᛒ"),
+  key("N", "ᚾ"),
+  key("M", "ᛗ"),
   ["<", ","],
   [">", "."],
   ["?", "/"],
-  usShiftKey("R"),
+  usShiftKey("R")
 ];
 
 export const QwertyRuneLayout: KeyboardDef = {
   name: "Runic-US",
-  fontFace: 'NotoSansRunic',
-  rows:[Row1, Row2, Row3, Row4]
+  fontFace: "NotoSansRunic",
+  rows: [Row1, Row2, Row3, Row4, usRow5()],
 };

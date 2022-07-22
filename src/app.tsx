@@ -1,13 +1,13 @@
-import React, { FC, ReactElement, useEffect, useState } from "react";
+import React, {
+  FC,
+  ReactElement,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { DvorakUSLayout } from "./layout/dvorak-us";
 import { QwertyUSLayout } from "./layout/qwerty-us";
-import {
-  kDefaultMargin,
-  kDefaultWidth,
-  KeyboardDef,
-  KeyLabel,
-  KeyLayout,
-} from "./key";
+import { KeyboardDef, KeyLabel, KeyLayout } from "./key";
 import { QwertyJISLayout } from "./layout/qwerty-jis";
 import { HashRouter, Routes, Route, Link } from "react-router-dom";
 import { QwertyRuneLayout } from "./layout/qwerty-rune";
@@ -82,19 +82,22 @@ const KeyCap: FC<{
   return (
     <div className="keyLayout relative">
       {labels.map((v) => (
-        <div className={["keyLabel", v.dir].join(" ")}>{v.text}</div>
+        <div className={`keyLabel ${v.dir}`}>{v.text}</div>
       ))}
     </div>
   );
 };
 
-function colToKey(col: string[] | KeyLayout) {
-  let l: KeyLayout;
+function unwrapCol(col: string[] | KeyLayout): KeyLayout {
   if (col instanceof KeyLayout) {
-    l = col;
+    return col;
   } else {
-    l = KeyLayout.fromKeyLabels(col);
+    return KeyLayout.fromKeyLabels(col);
   }
+}
+
+function colToKey(col: string[] | KeyLayout) {
+  let l = unwrapCol(col);
   return (
     <Key width={l.width}>
       <KeyCap labels={l.labels} />
@@ -102,9 +105,16 @@ function colToKey(col: string[] | KeyLayout) {
   );
 }
 
+const Context = React.createContext<{
+  width: number;
+  margin: number;
+}>({ width: 48, margin: 5 });
+
 const Keyboard: FC<{ layout: KeyboardDef }> = ({ layout }) => {
   // 14 squre key and half key + 14 margins
-  const width = (kDefaultWidth + kDefaultMargin) * 14 + kDefaultWidth * 0.5;
+  const w = 48;
+  const m = 5;
+  const width = (w + m) * 14 + w * 0.5;
   useEffect(() => {
     const callback = (ev: KeyboardEvent) => {
       console.log(ev);
@@ -112,25 +122,33 @@ const Keyboard: FC<{ layout: KeyboardDef }> = ({ layout }) => {
     window.addEventListener("keydown", callback);
     return () => window.removeEventListener("keydown", callback);
   }, []);
+  useEffect(() => {
+    layout.rows.forEach((v, i) => {
+      const sum = v.map((j) => unwrapCol(j).width).reduce((i, s) => i + s, 0);
+      if (sum !== 14.5) {
+        console.warn(`${layout.name}:row${i} ${sum}`);
+      }
+    });
+  }, []);
   return (
-    <div className="keyboard" style={{ width, fontFamily: layout.fontFace }}>
-      {layout.rows.map((row) => (
-        <Row>{row.map(colToKey)}</Row>
-      ))}
-    </div>
+    <Context.Provider value={{ width: w, margin: m }}>
+      <div className="keyboard" style={{ fontFamily: layout.fontFace }}>
+        {layout.rows.map((row) => (
+          <Row>{row.map(colToKey)}</Row>
+        ))}
+      </div>
+    </Context.Provider>
   );
 };
 
 const Row: FC<{
-  height?: number;
   children?: Children;
-}> = ({ height = kDefaultWidth, children }) => {
+}> = ({ children }) => {
+  const value = useContext(Context);
   return (
     <div
       className="row"
-      style={{
-        height,
-      }}
+      style={{ height: value.width, marginBottom: value.margin }}
     >
       {children}
     </div>
@@ -139,10 +157,20 @@ const Row: FC<{
 
 const Key: FC<{
   children?: Children;
-  width?: number;
+  width: number;
 }> = ({ width, children }) => {
+  const value = useContext(Context);
+  const w = value.width * width;
+  const j = Math.floor(w / (value.width + value.margin));
+  const m = value.margin * j;
   return (
-    <div className="key" style={{ width }}>
+    <div
+      className="key"
+      style={{
+        width: w + m,
+        marginRight: value.margin,
+      }}
+    >
       {children}
     </div>
   );

@@ -1,10 +1,11 @@
-import { KeyboardDef } from "../key";
+import { KeyboardDef, KeyLayout } from "../key";
 import {
   usCapsKey,
   usDelKey,
   usReturnKey,
+  usRow5,
   usShiftKey,
-  usTabKey
+  usTabKey,
 } from "../key-util";
 
 const Row1 = [
@@ -71,5 +72,5 @@ const Row4 = [
 
 export const QwertyUSLayout: KeyboardDef = {
   name: "Qwerty-US",
-  rows:[Row1, Row2, Row3, Row4]
+  rows: [Row1, Row2, Row3, Row4, usRow5()],
 };

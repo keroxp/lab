@@ -1,5 +1,5 @@
-export const kDefaultWidth = 48;// 2*2*2*2*3
-export const kDefaultMargin = 5;
+// export const kDefaultWidth = 48;// 2*2*2*2*3
+// export const kDefaultMargin = 5;
 export type KeyCapDir = "c" | "s" | "w" | "e" | "n" | "ne" | "nw" | "se" | "sw";
 export type KeyLabel = {
   text: string;
@@ -29,7 +29,7 @@ export class KeyLayout {
   }
   constructor({
     labels,
-    width = kDefaultWidth,
+    width = 1,
   }: {
     labels: KeyLabel[];
     width?: number;

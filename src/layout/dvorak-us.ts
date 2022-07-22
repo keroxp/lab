@@ -3,6 +3,7 @@ import {
   usCapsKey,
   usDelKey,
   usReturnKey,
+  usRow5,
   usShiftKey,
   usTabKey,
 } from "../key-util";
@@ -72,5 +73,5 @@ const Row4 = [
 
 export const DvorakUSLayout: KeyboardDef = {
   name: "Dvorak-US",
-  rows: [Row1, Row2, Row3, Row4],
+  rows: [Row1, Row2, Row3, Row4,usRow5()],
 };
