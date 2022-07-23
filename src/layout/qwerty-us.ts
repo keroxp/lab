@@ -1,4 +1,4 @@
-import { KeyboardDef, KeyLayout } from "../key";
+import { KeyboardDef } from "../key";
 import {
   usCapsKey,
   usDelKey,

@@ -460,31 +460,6 @@ export default {
           "name": "GAR",
           "codePoint": 5816,
           "rune": "ᚸ"
-        },
-        {
-          "name": "IOR",
-          "codePoint": 5857,
-          "rune": "ᛡ"
-        },
-        {
-          "name": "CWEORTH",
-          "codePoint": 5858,
-          "rune": "ᛢ"
-        },
-        {
-          "name": "CALC",
-          "codePoint": 5859,
-          "rune": "ᛣ"
-        },
-        {
-          "name": "CEALC",
-          "codePoint": 5860,
-          "rune": "ᛤ"
-        },
-        {
-          "name": "STAN",
-          "codePoint": 5861,
-          "rune": "ᛥ"
         }
       ]
     },
@@ -606,6 +581,61 @@ export default {
           "name": "EAR",
           "codePoint": 5856,
           "rune": "ᛠ"
+        }
+      ]
+    },
+    {
+      "transliteration": "",
+      "ipa": "",
+      "runes": [
+        {
+          "name": "IOR",
+          "codePoint": 5857,
+          "rune": "ᛡ"
+        }
+      ]
+    },
+    {
+      "transliteration": "",
+      "ipa": "",
+      "runes": [
+        {
+          "name": "CWEORTH",
+          "codePoint": 5858,
+          "rune": "ᛢ"
+        }
+      ]
+    },
+    {
+      "transliteration": "",
+      "ipa": "",
+      "runes": [
+        {
+          "name": "CALC",
+          "codePoint": 5859,
+          "rune": "ᛣ"
+        }
+      ]
+    },
+    {
+      "transliteration": "",
+      "ipa": "",
+      "runes": [
+        {
+          "name": "CEALC",
+          "codePoint": 5860,
+          "rune": "ᛤ"
+        }
+      ]
+    },
+    {
+      "transliteration": "",
+      "ipa": "",
+      "runes": [
+        {
+          "name": "STAN",
+          "codePoint": 5861,
+          "rune": "ᛥ"
         }
       ]
     }

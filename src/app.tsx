@@ -1,10 +1,4 @@
-import React, {
-  FC,
-  ReactElement,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { FC, useContext, useEffect } from "react";
 import { DvorakUSLayout } from "./layout/dvorak-us";
 import { QwertyUSLayout } from "./layout/qwerty-us";
 import { KeyboardDef, KeyLabel, KeyLayout } from "./key";
@@ -37,14 +31,15 @@ export const App = () => {
 const Links = () => {
   return (
     <div>
+      <h2>Keyboards</h2>
       {layouts.map((v) => (
         <div>
           <div>
             <Link to={v.name}>{v.name}</Link>
           </div>
-          <Keyboard layout={v} />
         </div>
       ))}
+      <h2>Runic Alphabets</h2>
       <Link to={"/runes"}>Runes</Link>
     </div>
   );
@@ -82,7 +77,9 @@ const KeyCap: FC<{
   return (
     <div className="keyLayout relative">
       {labels.map((v) => (
-        <div className={`keyLabel ${v.dir}`}>{v.text}</div>
+        <div key={v.text} className={`keyLabel ${v.dir}`}>
+          {v.text}
+        </div>
       ))}
     </div>
   );
@@ -96,15 +93,6 @@ function unwrapCol(col: string[] | KeyLayout): KeyLayout {
   }
 }
 
-function colToKey(col: string[] | KeyLayout) {
-  let l = unwrapCol(col);
-  return (
-    <Key width={l.width}>
-      <KeyCap labels={l.labels} />
-    </Key>
-  );
-}
-
 const Context = React.createContext<{
   width: number;
   margin: number;
@@ -113,7 +101,7 @@ const Context = React.createContext<{
 const Keyboard: FC<{ layout: KeyboardDef }> = ({ layout }) => {
   // 14 squre key and half key + 14 margins
   const w = 48;
-  const m = 5;
+  const m = 0;
   const width = (w + m) * 14 + w * 0.5;
   useEffect(() => {
     const callback = (ev: KeyboardEvent) => {
@@ -132,9 +120,15 @@ const Keyboard: FC<{ layout: KeyboardDef }> = ({ layout }) => {
   }, []);
   return (
     <Context.Provider value={{ width: w, margin: m }}>
-      <div className="keyboard" style={{ fontFamily: layout.fontFace }}>
-        {layout.rows.map((row) => (
-          <Row>{row.map(colToKey)}</Row>
+      <div className="keyboard" style={{ width, fontFamily: layout.fontFace }}>
+        {layout.rows.map((row, i) => (
+          <Row key={i}>
+            {row.map(unwrapCol).map((l, j) => (
+              <Key key={j} width={l.width}>
+                <KeyCap labels={l.labels} />
+              </Key>
+            ))}
+          </Row>
         ))}
       </div>
     </Context.Provider>
@@ -167,7 +161,7 @@ const Key: FC<{
     <div
       className="key"
       style={{
-        width: w + m,
+        width: w ,
         marginRight: value.margin,
       }}
     >

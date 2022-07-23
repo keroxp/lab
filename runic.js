@@ -13,14 +13,15 @@ for (let i = 1; i < lines.length; i++) {
   for (let j = 5; j < 10; j++) {
     if (line[j]) {
       const lut = luts[j - 5];
-      let arr = lut.get(transliteration);
+      const key = transliteration || rune;
+      let arr = lut.get(key);
       if (!arr) {
         arr = {
           transliteration,
           ipa,
           runes: [],
         };
-        lut.set(transliteration, arr);
+        lut.set(key, arr);
       }
       arr.runes.push({ name, codePoint:parseInt(codePoint), rune });
     }

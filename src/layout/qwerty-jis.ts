@@ -36,6 +36,10 @@ const Row2 = [
   ["P"],
   ["`", "@"],
   ["{", "["],
+  new KeyLayout({
+    labels: [{ text: "Ret", dir: "se" }],
+    width: 1.5
+  })
 ];
 const Row3 = [
   new KeyLayout({
@@ -54,6 +58,10 @@ const Row3 = [
   ["+", ";"],
   ["*", ":"],
   ["}", "]"],
+  new KeyLayout({
+    labels: [{ text: "urn", dir: "se" }],
+    width: 1.25
+  })
 ];
 const Row4 = [
   new KeyLayout({
