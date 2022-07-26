@@ -1,7 +1,7 @@
-import { KeyboardDef, KeyLayout } from "../key";
+import { key, KeyboardLayout, label, unwrapLayout } from "../key";
 
 const Row1 = [
-  new KeyLayout({
+  key({
     labels: [
       { text: "!", dir: "n" },
       { text: "1", dir: "s" },
@@ -20,106 +20,106 @@ const Row1 = [
   ["=", "-"],
   ["~", "^"],
   ["|", "¥"],
-  ["Del"],
+  "Del",
 ];
 const Row2 = [
-  ["Tab"],
-  ["Q"],
-  ["W"],
-  ["E"],
-  ["R"],
-  ["T"],
-  ["Y"],
-  ["U"],
-  ["I"],
-  ["O"],
-  ["P"],
+  "Tab",
+  "Q",
+  "W",
+  "E",
+  "R",
+  "T",
+  "Y",
+  "U",
+  "I",
+  "O",
+  "P",
   ["`", "@"],
   ["{", "["],
-  new KeyLayout({
+  key({
     labels: [{ text: "Ret", dir: "se" }],
-    width: 1.5
-  })
+    width: 1.5,
+  }),
 ];
 const Row3 = [
-  new KeyLayout({
+  key({
     labels: [{ text: "Ctrl", dir: "sw" }],
-    width: 1.25 ,
+    width: 1.25,
   }),
-  ["A"],
-  ["S"],
-  ["D"],
-  ["F"],
-  ["G"],
-  ["H"],
-  ["J"],
-  ["K"],
-  ["L"],
+  "A",
+  "S",
+  "D",
+  "F",
+  "G",
+  "H",
+  "J",
+  "K",
+  "L",
   ["+", ";"],
   ["*", ":"],
   ["}", "]"],
-  new KeyLayout({
+  key({
     labels: [{ text: "urn", dir: "se" }],
-    width: 1.25
-  })
+    width: 1.25,
+  }),
 ];
 const Row4 = [
-  new KeyLayout({
+  key({
     labels: [{ text: "Shift", dir: "sw" }],
     width: 1.75,
   }),
-  ["Z"],
-  ["X"],
-  ["C"],
-  ["V"],
-  ["B"],
-  ["N"],
-  ["M"],
+  "Z",
+  "X",
+  "C",
+  "V",
+  "B",
+  "N",
+  "M",
   ["<", ","],
   [">", "."],
   ["?", "/"],
-  ["_"],
-  new KeyLayout({
+  "_",
+  key({
     labels: [{ text: "Shift", dir: "se" }],
     width: 1.75,
   }),
 ];
 
 const Row5 = [
-  ["Caps"],
-  ["Opt"],
-  new KeyLayout({
+  key(1, label(["Caps", "sw"])),
+  key(1, label(["Opt", "sw"])),
+  key({
     labels: [{ text: "Cmd", dir: "se" }],
     width: 1.25,
   }),
-  new KeyLayout({
+  key({
     labels: [{ text: "英数", dir: "se" }],
     width: 1.25,
   }),
-  new KeyLayout({
+  key({
     labels: [{ text: "Space", dir: "se" }],
-    width: 3.5
+    width: 3.5,
   }),
-  new KeyLayout({
+  key({
     labels: [{ text: "かな", dir: "se" }],
     width: 1.25,
   }),
-  new KeyLayout({
+  key({
     labels: [{ text: "cmd", dir: "se" }],
-    width: 1.25
+    width: 1.25,
   }),
-  ["Fn"],
-  ["←"],
-  new KeyLayout({
+  key(1,label(["Fn","se"])),
+  "←",
+  key({
     labels: [
       { text: "↑", dir: "n" },
       { text: "↓", dir: "s" },
     ],
   }),
-  ["→"],
+  "→",
 ];
 
-export const QwertyJISLayout: KeyboardDef = {
+export const QwertyJISLayout: KeyboardLayout = {
   name: "Qwerty-JIS",
-  rows: [Row1, Row2, Row3, Row4, Row5],
+  rows: unwrapLayout([Row1, Row2, Row3, Row4, Row5]),
 };

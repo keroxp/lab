@@ -1,11 +1,11 @@
-import { KeyboardDef, KeyLayout } from "../key";
+import { key, KeyboardLayout, label, unwrapLayout } from "../key";
 import {
   usCapsKey,
   usDelKey,
   usReturnKey,
   usRow5,
   usShiftKey,
-  usTabKey,
+  usTabKey
 } from "../key-util";
 
 const Row1 = [
@@ -24,63 +24,60 @@ const Row1 = [
   ["+", "="],
   usDelKey(),
 ];
-function key(l: string, r: string) {
-  return new KeyLayout({
-    labels: [
-      { text: l, dir: "nw" },
-      { text: r, dir: "se" },
-    ],
+function _key(l: string, r: string) {
+  return key({
+    labels: label([l, "nw"], [r, "se"]),
   });
 }
 
 const Row2 = [
   usTabKey(),
   ["Q"],
-  key("W","ᚹ"),
-  key("E","ᛖ"),
-  key("R", "ᚱ"),
-  key("T", "ᛏ"),
+  _key("W", "ᚹ"),
+  _key("E", "ᛖ"),
+  _key("R", "ᚱ"),
+  _key("T", "ᛏ"),
   ["Y"],
-  key("U", "ᚢ"),
-  key("I", "ᛁ"),
-  key("O","ᛟ"),
-  key("P", "ᛈ"),
+  _key("U", "ᚢ"),
+  _key("I", "ᛁ"),
+  _key("O", "ᛟ"),
+  _key("P", "ᛈ"),
   ["[", "{"],
   ["]", "}"],
   ["|", "\\"],
 ];
 const Row3 = [
   usCapsKey(),
-  key("A","ᚨ"),
-  key("S","ᛊ"),
-  key("D","ᛞ"),
-  key("F", "ᚠ"),
-  key("G","ᚷ"),
-  key("H","ᚺ"),
-  key("J","ᛃ"),
-  key("K","ᚲ"),
-  key("L", "ᛚ"),
+  _key("A", "ᚨ"),
+  _key("S", "ᛊ"),
+  _key("D", "ᛞ"),
+  _key("F", "ᚠ"),
+  _key("G", "ᚷ"),
+  _key("H", "ᚺ"),
+  _key("J", "ᛃ"),
+  _key("K", "ᚲ"),
+  _key("L", "ᛚ"),
   [":", ";"],
   ['"', "'"],
   usReturnKey(),
 ];
 const Row4 = [
   usShiftKey("L"),
-  key("Z", "ᛉ"),
-  key("X", "ᚦ"),
-  key("C","ᛜ" ),
-  key("V","ᛇ"),
-  key("B","ᛒ"),
-  key("N", "ᚾ"),
-  key("M", "ᛗ"),
+  _key("Z", "ᛉ"),
+  _key("X", "ᚦ"),
+  _key("C", "ᛜ"),
+  _key("V", "ᛇ"),
+  _key("B", "ᛒ"),
+  _key("N", "ᚾ"),
+  _key("M", "ᛗ"),
   ["<", ","],
   [">", "."],
   ["?", "/"],
-  usShiftKey("R")
+  usShiftKey("R"),
 ];
 
-export const QwertyRuneLayout: KeyboardDef = {
+export const QwertyRuneLayout: KeyboardLayout = {
   name: "Runic-US",
   fontFace: "NotoSansRunic",
-  rows: [Row1, Row2, Row3, Row4, usRow5()],
+  rows: unwrapLayout([Row1, Row2, Row3, Row4, usRow5()]),
 };

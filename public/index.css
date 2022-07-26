@@ -21,6 +21,16 @@
   border-right: 1px solid black;
   border-bottom: 1px solid black;
   box-sizing: border-box;
+  cursor: pointer;
+  background-color: white;
+  user-select: none;
+}
+.key:hover {
+  background-color: antiquewhite;
+}
+.key:active,
+.key[data-selected="true"] {
+  background-color: #ccc;
 }
 .key:first-child {
   border-left: 1px solid black;
@@ -31,13 +41,9 @@
 
 .keyLayout {
   height: 100%;
-  /* border-radius: 4px; */
-  background-color: white;
-  /* border: 1px solid black; */
   box-sizing: border-box;
   grid-template-columns: repeat(3, 33.3%);
 }
-
 .keyLabel {
   box-sizing: border-box;
   position: absolute;
@@ -60,6 +66,22 @@
 .keyLabel.n {
   align-items: start;
   justify-content: center;
+}
+.keyLabel.e {
+  align-items: center;
+  justify-content: end;
+}
+.keyLabel.w {
+  align-items: center;
+  justify-content: start;
+}
+.keyLabel.ne {
+  align-items: start;
+  justify-content: end;
+}
+.keyLabel.nw {
+  align-items: start;
+  justify-content: start;
 }
 .keyLabel.se {
   align-items: end;
@@ -115,4 +137,8 @@
 .runic-cell-ipa {
   background-color: #efefef;
   height: 24px;
+}
+
+.keyboardDesigner {
+  display: flex;
 }

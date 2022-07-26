@@ -1,16 +1,7 @@
-import { KeyboardLayout, unwrapLayout } from "../key";
-import {
-  usCapsKey,
-  usDelKey,
-  usReturnKey,
-  usRow5,
-  usShiftKey,
-  usTabKey,
-} from "../key-util";
-
+import { key, KeyboardLayout, label, unwrapLayout } from "../key";
+import { usRow5 } from "../key-util";
 const Row1 = [
-  ["~", "`"],
-  ["!", "1"],
+  key(1.5, label(["!", "n"], ["1", "s"])),
   ["@", "2"],
   ["#", "3"],
   ["$", "4"],
@@ -22,10 +13,11 @@ const Row1 = [
   [")", "0"],
   ["{", "}"],
   ["[", "]"],
-  usDelKey(),
+  ["|", "¥"],
+  "Del",
 ];
 const Row2 = [
-  usTabKey(),
+  "Tab",
   ['"', "'"],
   ["<", ","],
   [">", "."],
@@ -38,11 +30,14 @@ const Row2 = [
   "L",
   ["?", "/"],
   ["+", "="],
-  ["|", "\\"],
+  key(1.5, label("Ret", "se")),
 ];
 
 const Row3 = [
-  usCapsKey(),
+  key({
+    labels: [{ text: "Ctrl", dir: "sw" }],
+    width: 1.25,
+  }),
   "A",
   "O",
   "E",
@@ -54,10 +49,14 @@ const Row3 = [
   "N",
   "S",
   ["-", "_"],
-  usReturnKey(),
+  ["|", "\\"],
+  key({
+    labels: [{ text: "urn", dir: "se" }],
+    width: 1.25,
+  }),
 ];
 const Row4 = [
-  usShiftKey("L"),
+  key(1.75, label("Shift", "sw")),
   [";", ":"],
   "Q",
   "J",
@@ -68,10 +67,11 @@ const Row4 = [
   "W",
   "V",
   "Z",
-  usShiftKey("R"),
+  ["~", "`"],
+  key(1.75, label("Shift", "se")),
 ];
 
-export const DvorakUSLayout: KeyboardLayout = {
-  name: "Dvorak-US",
+export const DvorakJISLayout: KeyboardLayout = {
+  name: "Dvorak-JIS",
   rows: unwrapLayout([Row1, Row2, Row3, Row4, usRow5()]),
 };

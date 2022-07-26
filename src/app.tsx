@@ -1,18 +1,12 @@
-import React, { FC, useContext, useEffect } from "react";
-import { DvorakUSLayout } from "./layout/dvorak-us";
-import { QwertyUSLayout } from "./layout/qwerty-us";
-import { KeyboardDef, KeyLabel, KeyLayout } from "./key";
-import { QwertyJISLayout } from "./layout/qwerty-jis";
-import { HashRouter, Routes, Route, Link } from "react-router-dom";
-import { QwertyRuneLayout } from "./layout/qwerty-rune";
+import React, { FC } from "react";
+import { HashRouter, Link, Route, Routes } from "react-router-dom";
+import { KeyboardDesigner } from "./kbds/keyboard-designer";
+import { KeyboardLayout } from "./key";
+import { Keyboard } from "./keyboard";
+import { KeyboardLayouts } from "./layout/layout";
 import { RunicAlphabetTable } from "./rune";
 
-const layouts = [
-  DvorakUSLayout,
-  QwertyUSLayout,
-  QwertyJISLayout,
-  QwertyRuneLayout,
-];
+const layouts = KeyboardLayouts
 
 export const App = () => {
   return (
@@ -23,6 +17,7 @@ export const App = () => {
           <Route key={v.name} path={v.name} element={<_App layout={v} />} />
         ))}
         <Route path="/runes" element={<RunicAlphabetTable />} />
+        <Route path="/keyboard-designer" element={<KeyboardDesigner />} />
       </Routes>
     </HashRouter>
   );
@@ -39,13 +34,19 @@ const Links = () => {
           </div>
         </div>
       ))}
-      <h2>Runic Alphabets</h2>
-      <Link to={"/runes"}>Runes</Link>
+      <ul>
+        <li>
+          <Link to={"/runes"}>Runic Alphabets</Link>
+        </li>
+        <li>
+          <Link to={"/keyboard-designer"}>Keyboard Designer</Link>
+        </li>
+      </ul>
     </div>
   );
 };
 
-const _App: FC<{ layout: KeyboardDef }> = ({ layout }) => {
+const _App: FC<{ layout: KeyboardLayout }> = ({ layout }) => {
   return (
     <div>
       <div>
@@ -65,107 +66,6 @@ const _App: FC<{ layout: KeyboardDef }> = ({ layout }) => {
         </select>
       </div>
       <Keyboard layout={layout} />
-    </div>
-  );
-};
-
-type Children = React.ReactNode | React.ReactNode[];
-
-const KeyCap: FC<{
-  labels: KeyLabel[];
-}> = ({ labels }) => {
-  return (
-    <div className="keyLayout relative">
-      {labels.map((v) => (
-        <div key={v.text} className={`keyLabel ${v.dir}`}>
-          {v.text}
-        </div>
-      ))}
-    </div>
-  );
-};
-
-function unwrapCol(col: string[] | KeyLayout): KeyLayout {
-  if (col instanceof KeyLayout) {
-    return col;
-  } else {
-    return KeyLayout.fromKeyLabels(col);
-  }
-}
-
-const Context = React.createContext<{
-  width: number;
-  margin: number;
-}>({ width: 48, margin: 5 });
-
-const Keyboard: FC<{ layout: KeyboardDef }> = ({ layout }) => {
-  // 14 squre key and half key + 14 margins
-  const w = 48;
-  const m = 0;
-  const width = (w + m) * 14 + w * 0.5;
-  useEffect(() => {
-    const callback = (ev: KeyboardEvent) => {
-      console.log(ev);
-    };
-    window.addEventListener("keydown", callback);
-    return () => window.removeEventListener("keydown", callback);
-  }, []);
-  useEffect(() => {
-    layout.rows.forEach((v, i) => {
-      const sum = v.map((j) => unwrapCol(j).width).reduce((i, s) => i + s, 0);
-      if (sum !== 14.5) {
-        console.warn(`${layout.name}:row${i} ${sum}`);
-      }
-    });
-  }, []);
-  return (
-    <Context.Provider value={{ width: w, margin: m }}>
-      <div className="keyboard" style={{ width, fontFamily: layout.fontFace }}>
-        {layout.rows.map((row, i) => (
-          <Row key={i}>
-            {row.map(unwrapCol).map((l, j) => (
-              <Key key={j} width={l.width}>
-                <KeyCap labels={l.labels} />
-              </Key>
-            ))}
-          </Row>
-        ))}
-      </div>
-    </Context.Provider>
-  );
-};
-
-const Row: FC<{
-  children?: Children;
-}> = ({ children }) => {
-  const value = useContext(Context);
-  return (
-    <div
-      className="row"
-      style={{ height: value.width, marginBottom: value.margin }}
-    >
-      {children}
-    </div>
-  );
-};
-
-const Key: FC<{
-  children?: Children;
-  width: number;
-}> = ({ width, children }) => {
-  const value = useContext(Context);
-  const w = value.width * width;
-  const j = Math.floor(w / (value.width + value.margin));
-  const m = value.margin * j;
-  return (
-    <div
-      className="key"
-      style={{
-        width: w ,
-        marginRight: value.margin,
-      }}
-    >
-      {children}
     </div>
   );
 };
