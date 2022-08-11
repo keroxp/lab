@@ -1,28 +1,51 @@
-import React, { Dispatch, FC, useContext, useMemo, useState } from "react";
-import { KeyboardLayout, KeyCapDir, KeyLabel, KeyLayout, label } from "../key";
+import update, { Spec } from "immutability-helper";
+import React, {
+  ChangeEvent,
+  FC,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import {
+  KeyboardLayout,
+  KeyCapDir,
+  KeyLabel,
+  KeyLabelMap,
+  KeyLayout,
+} from "../key";
 import { Keyboard } from "../keyboard";
 import { KeyboardLayouts } from "../layout/layout";
-import { QwertyUSLayout } from "../layout/qwerty-us";
-import { usePatcher } from "../react-util";
-import update, { Spec } from "immutability-helper";
 import { QwertyJISLayout } from "../layout/qwerty-jis";
-import { usRow5 } from "../key-util";
 
-type State = { selected?: [number, number]; layout: KeyboardLayout };
+type State = {
+  selected?: [number, number];
+  showJson: boolean;
+  layout: KeyboardLayout;
+};
 const Context = React.createContext<{
   state: State;
-  dispatch: (v: State) => void;
+  reduce: (v: Spec<State>) => void;
 }>({
-  state: { layout: QwertyJISLayout },
-  dispatch: () => {},
+  state: { layout: QwertyJISLayout, showJson: false },
+  reduce: () => {},
 });
 export const KeyboardDesigner = () => {
-  const [state, dispatch] = useState<State>({ layout: QwertyJISLayout });
+  const [state, dispatch] = useState<State>({
+    layout: QwertyJISLayout,
+    showJson: false,
+  });
+  const reduce = useMemo(() => {
+    return (spec: Spec<State>) => {
+      dispatch(update(state, spec));
+    };
+  }, [state]);
   return (
-    <Context.Provider value={{ state, dispatch }}>
+    <Context.Provider value={{ state, reduce }}>
       <div className="keyboardDesigner">
         <Keyboard
           layout={state.layout}
+          selected={state.selected}
           onKeyClick={(row, col) => {
             dispatch(
               update(state, {
@@ -40,7 +63,7 @@ export const KeyboardDesigner = () => {
                 const layout = KeyboardLayouts.find(
                   (v) => v.name === ev.currentTarget.value
                 )!;
-                dispatch({ layout });
+                dispatch(update(state, { layout: { $set: layout } }));
               }}
             >
               {KeyboardLayouts.map((v) => (
@@ -52,8 +75,22 @@ export const KeyboardDesigner = () => {
           </div>
           {state.selected && <KeyInspector indices={state.selected} />}
           <div>
-            <button>Show JSON</button>
-            {/* <textarea value={state.layout.toJSON()} /> */}
+            <button
+              onClick={() => dispatch({ ...state, showJson: !state.showJson })}
+            >
+              Show JSON
+            </button>
+            {state.showJson && (
+              <textarea
+                value={JSON.stringify(state.layout)}
+                onChange={(ev) => {
+                  const next: KeyboardLayout = JSON.parse(
+                    ev.currentTarget.value
+                  );
+                  dispatch(update(state, { layout: { $set: next } }));
+                }}
+              />
+            )}
           </div>
         </div>
       </div>
@@ -61,10 +98,10 @@ export const KeyboardDesigner = () => {
   );
 };
 
-const dirs = ["nw", "n", "ne", "w", "c", "e", "sw", "s", "se"];
+const dirs: KeyCapDir[] = ["nw", "n", "ne", "w", "c", "e", "sw", "s", "se"];
 
 const KeyInspector: FC<{ indices: [number, number] }> = ({ indices }) => {
-  const { state, dispatch } = useContext(Context);
+  const { state, reduce } = useContext(Context);
   const key = state.layout.rows[indices[0]][indices[1]];
   const [row, col] = state.selected!;
   const query = (spec: Spec<KeyLayout>): Spec<State> => {
@@ -72,75 +109,127 @@ const KeyInspector: FC<{ indices: [number, number] }> = ({ indices }) => {
       layout: { rows: { [row]: { [col]: spec } } },
     };
   };
-  const onClickAdd = () => {
-    dispatch(update(state, query({ labels: { $push: label(["", "e"]) } })));
+  const onChangeLabel = (dir: KeyCapDir, text: string) => {
+    reduce(query({ labels: { [dir]: { $set: { text, dir } } } }));
   };
-  const onDelete = (i: number) => () => {
-    dispatch(update(state, query({ labels: { $splice: [[i]] } })));
+  const onSwap = (a: KeyCapDir, b: KeyCapDir) => {
+    const _a = key.labels[a];
+    const _b = key.labels[b];
+    const next = { ...key.labels };
+    next[a] = _b;
+    next[b] = _a;
+    if (!_a) delete next[b];
+    if (!_b) delete next[a];
+    reduce(query({ labels: { $set: next } }));
   };
-  const onChangeLabel = (i: number) => (text: string, dir: KeyCapDir) => {
-    dispatch(
-      update(state, query({ labels: { [i]: { $set: { text, dir } } } }))
-    );
+  const onInputWitdh = (ev: ChangeEvent<HTMLInputElement>) => {
+    reduce(query({ width: { $set: ev.currentTarget.valueAsNumber } }));
+  };
+  const onAddKey = (left: boolean) => () => {
+    const key: KeyLayout = { width: 1, labels: {} };
+    const loc = left ? col : col + 1;
+    const curr = left ? col + 1 : col;
+    reduce({
+      layout: {
+        rows: { [row]: { $splice: [[loc, 0, key]] } },
+      },
+      selected: { $set: [row, curr] },
+    });
+  };
+  const onDelete = () => {
+    reduce({
+      layout: {
+        rows: { [row]: { $splice: [[col, 1]] } },
+      },
+      selected: { $set: undefined },
+    });
   };
   return (
     <div className="keyInspector">
       <div>
         <div>Labels</div>
-        <div>
-          {key.labels.map((v, i) => (
-            <KeyTop
-              key={i}
-              label={v}
-              onChange={onChangeLabel(i)}
-              onDelete={onDelete(i)}
-            />
-          ))}
-        </div>
-        <div>
-          <button onClick={onClickAdd}>Add Label</button>
-        </div>
+        <KeyTop layout={key} onChange={onChangeLabel} onSwap={onSwap} />
         <div>Width</div>
         <input
           type="number"
           min={1}
-          step={0.5}
+          step={0.05}
           autoComplete="false"
           value={key.width}
+          onChange={onInputWitdh}
         ></input>
-        <button>Delete</button>
+        <div>
+          <button onClick={onAddKey(true)}>Add Left</button>
+          <button onClick={onDelete}>Delete</button>
+          <button onClick={onAddKey(false)}>Add Right</button>
+        </div>
       </div>
     </div>
   );
 };
 
 const KeyTop: FC<{
-  label: KeyLabel;
-  onChange: (text: string, dir: KeyCapDir) => void;
-  onDelete: () => void;
-}> = ({ onChange, onDelete, label }) => {
-  const { text, dir } = label;
+  layout: KeyLayout;
+  onSwap: (dir: KeyCapDir, ne: KeyCapDir) => void;
+  onChange: (dir: KeyCapDir, text: string) => void;
+}> = ({ onSwap, onChange, layout }) => {
+  const [edit, setEdit] = useState<KeyCapDir | undefined>();
+  const [sel, setSel] = useState<KeyCapDir | undefined>();
+  const labels = layout.labels;
+  useEffect(() => {
+    setEdit(undefined);
+    setSel(undefined);
+  }, [layout]);
   return (
     <div className="keyLabelEdit">
-      <input
-        type="text"
-        value={text}
-        onInput={(ev) => {
-          ev.currentTarget.value;
-          onChange(ev.currentTarget.value, dir);
-        }}
-      />
-      <select
-        value={dir}
-        onChange={(ev) => {
-          onChange(text, ev.currentTarget.value as KeyCapDir);
-        }}
-      >
-        {dirs.map((dir) => (
-          <option value={dir}>{dir}</option>
-        ))}
-      </select>
-      <button onClick={onDelete}>X</button>
+      <div className="keyLabelDirs">
+        {dirs.map((dir) => {
+          const label = labels[dir];
+          if (edit === dir) {
+            return (
+              <input
+                className="keyLabelCell"
+                key={dir}
+                type="text"
+                autoFocus
+                value={label?.text ?? ""}
+                onBlur={(ev) => {
+                  setEdit(undefined);
+                }}
+                onInput={(ev) => {
+                  ev.currentTarget.value;
+                  onChange(dir, ev.currentTarget.value);
+                }}
+              />
+            );
+          } else {
+            const onClick = (ev: React.MouseEvent) => {
+              if (sel) {
+                onSwap(dir, sel);
+                setSel(undefined);
+              } else if (edit) {
+                setEdit(undefined);
+              } else {
+                setSel(dir);
+              }
+            };
+            return (
+              <div
+                key={dir}
+                onClick={onClick}
+                className="keyLabelCell"
+                onContextMenu={(ev) => {
+                  ev.preventDefault();
+                  setEdit(dir);
+                }}
+                data-selected={sel === dir}
+              >
+                {label?.text ?? ""}
+              </div>
+            );
+          }
+        })}
+      </div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
-import { key, KeyboardLayout, label, unwrapLayout } from "../key";
+import { key, KeyboardLayout, unwrapLayout } from "../key";
 import { usRow5 } from "../key-util";
 const Row1 = [
-  key(1.5, label(["!", "n"], ["1", "s"])),
+  key(1.5, { n: { text: "!" }, s: { text: "1" } }),
   ["@", "2"],
   ["#", "3"],
   ["$", "4"],
@@ -30,12 +30,12 @@ const Row2 = [
   "L",
   ["?", "/"],
   ["+", "="],
-  key(1.5, label("Ret", "se")),
+  key(1.5, { se: { text: "Ret" } }),
 ];
 
 const Row3 = [
   key({
-    labels: [{ text: "Ctrl", dir: "sw" }],
+    labels: { sw: { text: "Ctrl" } },
     width: 1.25,
   }),
   "A",
@@ -51,12 +51,12 @@ const Row3 = [
   ["-", "_"],
   ["|", "\\"],
   key({
-    labels: [{ text: "urn", dir: "se" }],
+    labels: { se: { text: "urn" } },
     width: 1.25,
   }),
 ];
 const Row4 = [
-  key(1.75, label("Shift", "sw")),
+  key(1.75, { sw: { text: "Shift" } }),
   [";", ":"],
   "Q",
   "J",
@@ -68,7 +68,7 @@ const Row4 = [
   "V",
   "Z",
   ["~", "`"],
-  key(1.75, label("Shift", "se")),
+  key(1.75, { sw: { text: "Shift" } }),
 ];
 
 export const DvorakJISLayout: KeyboardLayout = {

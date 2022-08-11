@@ -1,4 +1,4 @@
-import { key, KeyboardLayout, label, unwrapLayout } from "../key";
+import { key, KeyboardLayout, unwrapLayout } from "../key";
 import {
   usCapsKey,
   usDelKey,
@@ -26,7 +26,7 @@ const Row1 = [
 ];
 function _key(l: string, r: string) {
   return key({
-    labels: label([l, "nw"], [r, "se"]),
+    labels: {nw:{text:l}, se: {text: r}}
   });
 }
 

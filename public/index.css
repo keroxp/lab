@@ -140,5 +140,22 @@
 }
 
 .keyboardDesigner {
+  /* display: flex; */
+}
+.keyLabelDirs {
+  display: grid;
+  row-gap: 5px;
+  column-gap: 5px;
+  grid-template-columns: repeat(3, 50px);
+}
+.keyLabelCell {
+  height: 30px;
   display: flex;
+  justify-content: center;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.keyLabelCell:active, .keyLabelCell[data-selected="true"] {
+  background-color: aqua;
 }

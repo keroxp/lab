@@ -1,11 +1,8 @@
-import { key, KeyboardLayout, label, unwrapLayout } from "../key";
+import { key, KeyboardLayout, unwrapLayout } from "../key";
 
 const Row1 = [
   key({
-    labels: [
-      { text: "!", dir: "n" },
-      { text: "1", dir: "s" },
-    ],
+    labels: { n: { text: "!" }, s: { text: "1" } },
     width: 1.5,
   }),
   ['"', "2"],
@@ -37,13 +34,13 @@ const Row2 = [
   ["`", "@"],
   ["{", "["],
   key({
-    labels: [{ text: "Ret", dir: "se" }],
+    labels: { se: { text: "Ret" } },
     width: 1.5,
   }),
 ];
 const Row3 = [
   key({
-    labels: [{ text: "Ctrl", dir: "sw" }],
+    labels: { sw: { text: "Ctrl" } },
     width: 1.25,
   }),
   "A",
@@ -59,13 +56,13 @@ const Row3 = [
   ["*", ":"],
   ["}", "]"],
   key({
-    labels: [{ text: "urn", dir: "se" }],
+    labels: { se: { text: "urn" } },
     width: 1.25,
   }),
 ];
 const Row4 = [
   key({
-    labels: [{ text: "Shift", dir: "sw" }],
+    labels: { sw: { text: "Shift" } },
     width: 1.75,
   }),
   "Z",
@@ -80,41 +77,41 @@ const Row4 = [
   ["?", "/"],
   "_",
   key({
-    labels: [{ text: "Shift", dir: "se" }],
+    labels: { se: { text: "Shift" } },
     width: 1.75,
   }),
 ];
 
 const Row5 = [
-  key(1, label(["Caps", "sw"])),
-  key(1, label(["Opt", "sw"])),
+  key(1, { sw: { text: "Caps" } }),
+  key(1, { sw: { text: "Opt" } }),
   key({
-    labels: [{ text: "Cmd", dir: "se" }],
+    labels: { se: { text: "Cmd" } },
     width: 1.25,
   }),
   key({
-    labels: [{ text: "英数", dir: "se" }],
+    labels: { se: { text: "英数" } },
     width: 1.25,
   }),
   key({
-    labels: [{ text: "Space", dir: "se" }],
+    labels: { se: { text: "Space" } },
     width: 3.5,
   }),
   key({
-    labels: [{ text: "かな", dir: "se" }],
+    labels: { sw: { text: "かな" } },
     width: 1.25,
   }),
   key({
-    labels: [{ text: "cmd", dir: "se" }],
+    labels: { sw: { text: "cmd" } },
     width: 1.25,
   }),
-  key(1,label(["Fn","se"])),
+  key(1, { se: { text: "Fn" } }),
   "←",
   key({
-    labels: [
-      { text: "↑", dir: "n" },
-      { text: "↓", dir: "s" },
-    ],
+    labels: {
+      n: { text: "↑" },
+      w: { text: "↓" },
+    },
   }),
   "→",
 ];

@@ -2,31 +2,33 @@ import { key } from "./key";
 
 export function usDelKey() {
   return key({
-    labels: [{ text: "Delete", dir: "se" }],
+    labels: { se: { text: "Delete" } },
     width: 1.5,
   });
 }
 export function usTabKey() {
   return key({
-    labels: [{ text: "Tab", dir: "sw" }],
+    labels: { sw: { text: "Tab" } },
     width: 1.5,
   });
 }
 export function usCapsKey() {
   return key({
-    labels: [{ text: "Caps", dir: "sw" }],
+    labels: { sw: { text: "Caps" } },
     width: 1.75,
   });
 }
 export function usReturnKey() {
   return key({
-    labels: [{ text: "Return", dir: "se" }],
+    labels: { se: { text: "Return" } },
     width: 1.75,
   });
 }
 export function usShiftKey(type: "L" | "R") {
   return key({
-    labels: [{ text: "Shift", dir: type === "L" ? "sw" : "se" }],
+    labels: {
+      [type === "L" ? "sw" : "se"]: { text: "Shift" },
+    },
     width: 2.25,
   });
 }
@@ -34,35 +36,35 @@ export function usShiftKey(type: "L" | "R") {
 export function usRow5() {
   return [
     key({
-      labels: [{ text: "Fn", dir: "sw" }],
+      labels: { sw: { text: "Fn" } },
     }),
     key({
-      labels: [{ text: "Ctrl", dir: "sw" }],
+      labels: { se: { text: "Ctrl" } },
     }),
     key({
-      labels: [{ text: "Opt", dir: "sw" }],
+      labels: { se: { text: "Opt" } },
     }),
     key({
-      labels: [{ text: "Cmd", dir: "se" }],
+      labels: { se: { text: "Cmd" } },
       width: 1.25,
     }),
     key({
-      labels: [{ text: "Space", dir: "se" }],
+      labels: { se: { text: "Space" } },
       width: 5,
     }),
     key({
-      labels: [{ text: "cmd", dir: "se" }],
+      labels: { sw: { text: "cmd" } },
       width: 1.25,
     }),
     key({
-      labels: [{ text: "Opt", dir: "se" }],
+      labels: { sw: { text: "Opt" } },
     }),
     ["←"],
     key({
-      labels: [
-        { text: "↑", dir: "n" },
-        { text: "↓", dir: "s" },
-      ],
+      labels: {
+        n: { text: "↑" },
+        s: { text: "↓" },
+      },
     }),
     ["→"],
   ];
