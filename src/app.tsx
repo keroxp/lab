@@ -4,6 +4,7 @@ import { KeyboardDesigner } from "./kbds/keyboard-designer";
 import { KeyboardLayout } from "./key";
 import { Keyboard } from "./keyboard";
 import { KeyboardLayouts } from "./layout/layout";
+import { MyIME } from "./myime/myime";
 import { RunicAlphabetTable } from "./rune";
 
 const layouts = KeyboardLayouts
@@ -18,7 +19,9 @@ export const App = () => {
         ))}
         <Route path="/runes" element={<RunicAlphabetTable />} />
         <Route path="/keyboard-designer" element={<KeyboardDesigner />} />
-      </Routes>
+        <Route path="/myime" element={<MyIME />} />
+
+      </Routes>      
     </HashRouter>
   );
 };
@@ -40,6 +43,9 @@ const Links = () => {
         </li>
         <li>
           <Link to={"/keyboard-designer"}>Keyboard Designer</Link>
+        </li>
+        <li>
+          <Link to={"/myime"}>MyIME</Link>
         </li>
       </ul>
     </div>
